@@ -25,7 +25,6 @@
     - { role: fail2ban, tags: [fail2ban] }
     - { role: ferm, tags: [ferm] }
     - { role: ntp, tags: [ntp] }
-    - { role: users, tags: [users] }
     - { role: sshd, tags: [sshd] }
     - { role: mariadb, tags: [mariadb] }
     - { role: ssmtp, tags: [ssmtp, mail] }

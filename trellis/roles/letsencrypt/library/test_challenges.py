@@ -40,8 +40,8 @@ EXAMPLES = '''
 # Example from Ansible Playbooks.
 - test_challenges:
     hosts:
-      - example.com
-      - www.example.com
+      - sameday.com
+      - www.sameday.com
       - www.mydomain.com
 '''
 

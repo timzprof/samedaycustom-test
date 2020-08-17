@@ -8,7 +8,7 @@
       Please define it in `groups_vars/all/main.yml` with at least one email:
 
         letsencrypt_contact_emails:
-          - changeme@example.com
+          - changeme@sameday.com
 
       The contact email is used by Let's Encrypt to send expiry notices when a certificate is coming up for renewal.
 
@@ -28,12 +28,12 @@
     state: directory
   with_items:
     - path: "{{ acme_tiny_data_directory }}"
-      mode: '0700'
+      mode: "0700"
     - path: "{{ acme_tiny_data_directory }}/csrs"
     - path: "{{ acme_tiny_software_directory }}"
     - path: "{{ acme_tiny_challenges_directory }}"
     - path: "{{ letsencrypt_certs_dir }}"
-      mode: '0700'
+      mode: "0700"
 
 - name: Clone acme-tiny repository
   git:

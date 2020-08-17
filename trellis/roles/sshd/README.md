@@ -1,7 +1,7 @@
 The `sshd` role creates the following two configuration files on the server, setting secure defaults.
 
-* SSH server: `/etc/ssh/sshd_config`
-* SSH client: `/etc/ssh/ssh_config`
+- SSH server: `/etc/ssh/sshd_config`
+- SSH client: `/etc/ssh/ssh_config`
 
 ## Open a backup SSH connection
 
@@ -17,8 +17,8 @@ The `ServerAliveInterval` option causes your SSH client to periodically send the
 
 To keep the files as simple as possible, options are omitted if their system defaults are secure and broadly applicable. You may see the full and active configuration by running the following commands on your server.
 
-* SSH server (`sshd_config`): `sshd -T`
-* SSH client (`ssh_config`): `ssh -G example.com`
+- SSH server (`sshd_config`): `sshd -T`
+- SSH client (`ssh_config`): `ssh -G sameday.com`
 
 There are [resources](#resources) for understanding each option.
 
@@ -39,9 +39,11 @@ sshd_accept_env:
 ```
 
 You may notice that `templates/ssh_config.j2` references some `ssh_<varname>` variables that are not included in `defaults/main.yml` and that default to a `sshd_<varname>` variable. Here is an example:
+
 ```
 AddressFamily {{ ssh_address_family | default(sshd_address_family) }}
 ```
+
 This pattern spares `defaults/main.yml` from having repetitious `ssh` and `sshd` definitions for all settings. You may still define custom values for any `ssh_<varname>` in your `group_vars` files.
 
 ### `Ciphers`, `KexAlgorithms`, and `MACs`
@@ -75,7 +77,6 @@ If you can't [customize via variables](#customize-via-variables) because the tem
 
 Create your child templates following the [Jinja template inheritance](http://jinja.pocoo.org/docs/latest/templates/#template-inheritance) docs and the guidelines below.
 
-
 ### Designate a child template
 
 Use the `sshd_config` and `ssh_config` variables to inform Trellis of the child templates you have created. Below is an example of designating child templates in a new `templates` directory in your Trellis project root (e.g., next to the `server.yml` playbook).
@@ -91,8 +92,8 @@ ssh_config: "{{ playbook_dir }}/templates/ssh_config.j2"
 
 Create your child templates at the paths you designated in the `sshd_config` and `ssh_config` variables described above. [Child templates](http://jinja.pocoo.org/docs/latest/templates/#child-template) must include two elements:
 
-* an `{% extends 'base_template' %}` statement
-* one or more `{% block block_name %}` blocks
+- an `{% extends 'base_template' %}` statement
+- one or more `{% block block_name %}` blocks
 
 The path for your base template – referenced in your `extends` statement – must be relative to the `server.yml` playbook (i.e., relative to the Trellis root directory). See the examples below.
 
@@ -112,6 +113,7 @@ ForceCommand internal-sftp
 PermitRootLogin no
 {%- endblock %}
 ```
+
 The [`{{ super() }}`](http://jinja.pocoo.org/docs/latest/templates/#super-blocks) Jinja2 function returns the original block content from the base template, and can be omitted if you don't want to include the original content.
 
 Here is an example child template that adds host-specific SSH options at the beginning of `ssh_config`.
@@ -123,7 +125,7 @@ Here is an example child template that adds host-specific SSH options at the beg
 
 {% block main %}
 # Host-specific configuration
-Host example.com example2.com
+Host sameday.com example2.com
 	Port 2222
 	ForwardAgent yes
 
@@ -138,11 +140,11 @@ See the Trellis docs for [troubleshooting SSH connections](https://roots.io/trel
 
 ## Resources
 
-* Ubuntu manpage for [sshd_config](http://manpages.ubuntu.com/manpages/xenial/en/man5/sshd_config.5.html)
-* Ubuntu manpage for [ssh_config](http://manpages.ubuntu.com/manpages/xenial/en/man5/ssh_config.5.html)
-* stribika's [Secure Secure Shell](https://stribika.github.io/2015/01/04/secure-secure-shell.html) post
-* MozillaWiki's [security guidelines for OpenSSH](https://wiki.mozilla.org/Security/Guidelines/OpenSSH)
-* bettercrypto.org's [Applied Crypto Hardening](https://bettercrypto.org/static/applied-crypto-hardening.pdf)
+- Ubuntu manpage for [sshd_config](http://manpages.ubuntu.com/manpages/xenial/en/man5/sshd_config.5.html)
+- Ubuntu manpage for [ssh_config](http://manpages.ubuntu.com/manpages/xenial/en/man5/ssh_config.5.html)
+- stribika's [Secure Secure Shell](https://stribika.github.io/2015/01/04/secure-secure-shell.html) post
+- MozillaWiki's [security guidelines for OpenSSH](https://wiki.mozilla.org/Security/Guidelines/OpenSSH)
+- bettercrypto.org's [Applied Crypto Hardening](https://bettercrypto.org/static/applied-crypto-hardening.pdf)
 
 ## Attribution
 

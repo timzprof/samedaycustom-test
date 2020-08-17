@@ -93,7 +93,7 @@ Make sure all dependencies have been installed before moving on:
 Create a new project:
 
 ```bash
-$ trellis new example.com
+$ trellis new sameday.com
 ```
 
 ### Manual
@@ -101,7 +101,7 @@ $ trellis new example.com
 The recommended directory structure for a Trellis project looks like:
 
 ```bash
-example.com/      # → Root folder for the project
+sameday.com/      # → Root folder for the project
 ├── trellis/      # → Your clone of this repository
 └── site/         # → A Bedrock-based WordPress site
     └── web/
@@ -114,7 +114,7 @@ See a complete working example in the [roots-example-project.com repo](https://g
 1. Create a new project directory:
 
 ```bash
-$ mkdir example.com && cd example.com
+$ mkdir sameday.com && cd sameday.com
 ```
 
 2. Install Trellis:
